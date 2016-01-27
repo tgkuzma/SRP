@@ -5,7 +5,7 @@ namespace SRP.Good
 {
     public class RecordPerLineFileReader
     {
-        private StreamReader _openFile = null;
+        private StreamReader _openFile;
 
         public void OpenFile(string filePathToOpen)
         {

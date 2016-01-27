@@ -10,13 +10,19 @@ namespace SRP.Bad
     {
         public ParseResult<Person> ParseFile(string filePath, char delimiter)
         {
+            //Opens the file
             var parseResult = new ParseResult<Person>();
             var reader = File.OpenText(filePath);
+
             var line = "";
 
+            //Reads each line
             while ((line = reader.ReadLine()) != null)
             {
+                //Creates an array based on our delimiter
                 var fieldArray = line.Split(delimiter);
+
+                //Maps the array to a concrete object
                 var personFromFile = new Person
                 {
                     LastName = fieldArray[0],
@@ -24,6 +30,7 @@ namespace SRP.Bad
                     Birthday = DateTime.Parse(fieldArray[2])
                 };
 
+                //Perform some validation (method below)
                 var validationResult = ValidatePerson(personFromFile, line);
 
                 AddValidObjectOrParseErrorToResults(validationResult, parseResult, personFromFile, line);
@@ -32,6 +39,7 @@ namespace SRP.Bad
             return parseResult;
         }
 
+        //The validation logic from above
         private static ValidationResult ValidatePerson(Person personFromFile, string line)
         {
             var validationResult = new ValidationResult();
